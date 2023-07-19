@@ -31,6 +31,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision :shell, run: "always", inline: <<-SHELL
-  #  /usr/local/bin/docker-compose -f /vagrant/docker-compose.yml up -d
+    /usr/local/bin/docker-compose -f /vagrant/docker-compose.yml up -d
   SHELL
 end
