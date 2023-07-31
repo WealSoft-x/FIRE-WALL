@@ -29,7 +29,8 @@ public class FireWallController {
 			//画面に "エラーメッセージ:権限ユーザーがみつかりません"を表示する処理
 			System.out.println( "エラーメッセージ:権限ユーザーがみつかりません");
 			
-		} else if (service.getUserForDuplicatedError(param.getNewUser()).get(0).getMail().equals(param.getNewUser().getMail())){
+		} else if (service.getUserForDuplicatedError(param.getNewUser()).size() != 0 
+				&&service.getUserForDuplicatedError(param.getNewUser()).get(0).getMail().equals(param.getNewUser().getMail())){
 			
 			//画面に "SQL:登録メールのユーザーは既に存在しています"
 			System.out.println("SQL:登録メールのユーザーは既に存在しています");

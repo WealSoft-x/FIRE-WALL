@@ -9,7 +9,7 @@ public class Hash {
 	 
 	 
 	public String hashPassword(String password) {
-		String hashedPassword = BCrypt.hashpw(password, salt);
+		String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 		return hashedPassword;
 	}
 	
