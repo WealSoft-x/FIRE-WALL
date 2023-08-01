@@ -133,8 +133,8 @@ dist
 .vagrant
 
 # workspace
-workspace/.project
-workspace/.gradle/
+.gradle
 workspace/Servers/
 workspace/.gitignore
 workspace/.metadata/
+.project
