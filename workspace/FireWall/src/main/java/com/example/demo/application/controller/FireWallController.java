@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.application.config.Hash;
 import com.example.demo.application.domain.model.LoginUser;
+import com.example.demo.application.domain.model.User;
 import com.example.demo.application.domain.model.UserRegisterRequestParam;
 import com.example.demo.application.domain.service.UserService;
 
@@ -24,7 +25,7 @@ public class FireWallController {
 	public void register(@RequestBody UserRegisterRequestParam param) {
 		
 		
-		if (service.getCertifacatedUser(param.getManageUser()).size() == 0) {
+		if (service.getCertifacatedUser(param.getManageUser().getMail()).size() == 0) {
 			
 			//画面に "エラーメッセージ:権限ユーザーがみつかりません"を表示する処理
 			System.out.println( "エラーメッセージ:権限ユーザーがみつかりません");
@@ -40,40 +41,42 @@ public class FireWallController {
 			service.insertUser(param.getNewUser());
 		
 		} 
-		
-		
-		
 
 	}
 	
 	@PostMapping("/login")
 	public String userLogin(@RequestBody LoginUser loginUser){
 		
-		if(service.getLoginUser(loginUser).size() == 0) {
-			return"ログイン画面へ：ユーザーが存在しません";
+		User user = new User();
+		
+		if(service.getCertifacatedUser(loginUser.getMail()).size() == 0) {
+			
+			return"ログイン画面へ：ユーザーが存在しません(メールが違います)";
 		} 
 		
-		if(service.getLoginUser(loginUser).size() != 0 
-				&& !loginUser.getMail().equals(service.getLoginUser(loginUser).get(0).getMail())){
-			//画面に"メールが違います"
-			return"ログイン画面へ：メールが違います";
-
+		if(service.getCertifacatedUser(loginUser.getMail()).get(0).getInitial_certification_count() >= 5) {
+			return "あなたのアカウントはロックされています";
 		}
 		
+		
 		Hash hash = new Hash();
-		System.out.println(service.getLoginUser(loginUser).get(0).getPassword());
-		if(service.getLoginUser(loginUser).size() != 0 
-				&&hash.checkpw(loginUser.getPassword(), service.getLoginUser(loginUser).get(0).getPassword())) {
+		if(service.getCertifacatedUser(loginUser.getMail()).size() != 0 
+				&&hash.checkpw(loginUser.getPassword(), service.getCertifacatedUser(loginUser.getMail()).get(0).getPassword())) {
 			return"2段階認証画面へ";
 		} else {
+			
+			user.setMail(loginUser.getMail());
+			user.setInitial_certification_count(service.getCertifacatedUser(loginUser.getMail()).get(0).getInitial_certification_count() + 1);
+			service.setInitialCertificationCount(user);
+			
 			//画面に"パスワードが違います"
 			return"ログイン画面へ：パスワードが違います";
 		}
 		
-		
-
-		
+	}
+	
+	@PostMapping("/authentification")
+	public void twoFactorAuthentification() {
 		
 	}
-
 }
