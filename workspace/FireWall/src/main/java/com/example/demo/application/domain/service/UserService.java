@@ -10,8 +10,6 @@ import com.example.demo.application.config.Hash;
 import com.example.demo.application.domain.mapper.UserMapper;
 import com.example.demo.application.domain.model.CompleteNewUser;
 import com.example.demo.application.domain.model.CreateUserTime;
-import com.example.demo.application.domain.model.LoginUser;
-import com.example.demo.application.domain.model.ManageUser;
 import com.example.demo.application.domain.model.NewUser;
 import com.example.demo.application.domain.model.User;
 
@@ -26,8 +24,8 @@ public class UserService {
 	
 	
 	
-	public List<User> getCertifacatedUser(ManageUser manageUser) {
-		return userMapper.getCertifacatedUser(manageUser.getMail());
+	public List<User> getCertifacatedUser(String mail) {
+		return userMapper.getCertifacatedUser(mail);
 	}
 	
 	public void insertUser(NewUser newUser) {
@@ -56,9 +54,7 @@ public class UserService {
 		return userMapper.getUserForDuplicatedError(newUser.getMail());
 	}
 	
-	public List<User> getLoginUser(LoginUser loginUser) {
-		
-		return userMapper.getLoginUser(loginUser);
-	}
-
+	public void setInitialCertificationCount(User user) {
+		userMapper.setInitialCertificationCount(user);
+		}
 }

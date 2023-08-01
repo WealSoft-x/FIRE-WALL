@@ -5,10 +5,6 @@
       select * from PROXY.USERS 
       WHERE MAIL = #{mail}
    </select>
-   <select id="getLoginUser" resultType="com.example.demo.application.domain.model.User">
-      select * from PROXY.USERS 
-      WHERE MAIL = #{mail} AND PASSWORD = #{password}
-   </select>
    <select id="getUserForDuplicatedError" resultType="com.example.demo.application.domain.model.User">
       select * from PROXY.USERS 
       WHERE MAIL = #{mail}
@@ -31,4 +27,9 @@
        #{created_at}
      ) 
    </insert>
+   <update id="setInitialCertificationCount">
+   UPDATE PROXY.USERS
+   SET INITIAL_CERTIFICATION_COUNT = #{initial_certification_count}
+   WHERE MAIL = #{mail}
+   </update>
 </mapper>

@@ -131,3 +131,10 @@ dist
 
 # vagrant
 .vagrant
+
+# workspace
+.gradle
+workspace/Servers/
+workspace/.gitignore
+workspace/.metadata/
+.project
