@@ -134,6 +134,7 @@ dist
 
 # workspace
 workspace/.project
-workspace/.gradle
-workspace/Servers
-workspace/.gitignore/.metadata/
+workspace/.gradle/
+workspace/Servers/
+workspace/.gitignore
+workspace/.metadata/
