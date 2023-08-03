@@ -11,6 +11,7 @@ import com.example.demo.application.domain.mapper.UserMapper;
 import com.example.demo.application.domain.model.CompleteNewUser;
 import com.example.demo.application.domain.model.CreateUserTime;
 import com.example.demo.application.domain.model.NewUser;
+import com.example.demo.application.domain.model.TokenInfo;
 import com.example.demo.application.domain.model.User;
 
 @Service
@@ -57,4 +58,12 @@ public class UserService {
 	public void setInitialCertificationCount(User user) {
 		userMapper.setInitialCertificationCount(user);
 		}
+	
+	public void setTokenInfo(User user) {
+		userMapper.setTokenInfo(user);
+	}
+	
+	public List<User> getToken(TokenInfo token){
+		return userMapper.getToken(token.getToken());
+	}
 }
