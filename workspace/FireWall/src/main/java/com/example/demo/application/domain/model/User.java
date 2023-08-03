@@ -1,6 +1,6 @@
 package com.example.demo.application.domain.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -14,9 +14,9 @@ public class User {
 	private Boolean is_admin;
 	private int initial_certification_count;
 	private String token;
-	private Timestamp token_out_time;
-	private Timestamp updated_time;
-	private Timestamp created_time;
+	private LocalDateTime token_out_time;
+	private LocalDateTime updated_time;
+	private LocalDateTime created_time;
 	
 
 }

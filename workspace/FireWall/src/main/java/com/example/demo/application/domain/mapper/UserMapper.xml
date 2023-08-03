@@ -9,6 +9,10 @@
       select * from PROXY.USERS 
       WHERE MAIL = #{mail}
    </select>
+   <select id="getToken" resultType="com.example.demo.application.domain.model.User">
+      select * from PROXY.USERS 
+      WHERE TOKEN = #{token}
+   </select>
    <insert id="insertUser">
    INSERT INTO 
      PROXY.USERS(
@@ -30,6 +34,12 @@
    <update id="setInitialCertificationCount">
    UPDATE PROXY.USERS
    SET INITIAL_CERTIFICATION_COUNT = #{initial_certification_count}
+   WHERE MAIL = #{mail}
+   </update>
+   <update id="setTokenInfo">
+   UPDATE PROXY.USERS
+   SET TOKEN = #{token},
+       TOKEN_OUT_TIME = #{token_out_time}
    WHERE MAIL = #{mail}
    </update>
 </mapper>
