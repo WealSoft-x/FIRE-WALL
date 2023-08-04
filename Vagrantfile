@@ -15,8 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip:"172.16.0.20"
   config.vm.hostname = "firewall.local"
   config.ssh.forward_agent = true
-
-  config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=777","fmode=777"]
+  config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=777","fmode=777"], type:"virtualbox"
 
   config.vm.provision :shell, inline: <<-SHELL
     # Basic Packages Install

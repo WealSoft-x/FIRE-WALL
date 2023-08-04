@@ -138,3 +138,6 @@ workspace/Servers/
 workspace/.gitignore
 workspace/.metadata/
 .project
+
+# Mac
+.DS_Store
