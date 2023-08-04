@@ -66,4 +66,10 @@ public class UserService {
 	public List<User> getToken(TokenInfo token){
 		return userMapper.getToken(token.getToken());
 	}
+	public void setAutoCreatePassword(User user) {
+		//パスワードのハッシュ化
+		String hashedPassword = hash.hashPassword(user.getPassword());
+		user.setPassword(hashedPassword);
+		userMapper.setAutoCreatePassword(user);
+	}
 }

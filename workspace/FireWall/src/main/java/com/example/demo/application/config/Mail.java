@@ -38,8 +38,15 @@ public class Mail {
 		mimeMessage.setRecipient(Message.RecipientType.TO, toAddress);
 		InternetAddress fromAddress = new InternetAddress("info.wealsoft@gmail.com", "TEST認証");
 		mimeMessage.setFrom(fromAddress);
-		mimeMessage.setSubject("認証コード" + user.getToken(), "ISO-2022-JP");
-		mimeMessage.setText(user.getToken(), "ISO-2022-JP");
+		
+		if(user.getToken() != null) {
+			mimeMessage.setSubject("認証コード" + user.getToken(), "ISO-2022-JP");
+			mimeMessage.setText(user.getToken(), "ISO-2022-JP");
+		} else {
+			mimeMessage.setSubject("リセットパスワード用" + user.getPassword(), "ISO-2022-JP");
+			mimeMessage.setText(user.getPassword(), "ISO-2022-JP");
+		}
+		
 		Transport.send(mimeMessage);
 		System.out.println("メール送信が完了しました。");
 		

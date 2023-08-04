@@ -13,6 +13,10 @@
       select * from PROXY.USERS 
       WHERE TOKEN = #{token}
    </select>
+   <select id="getPassword" resultType="com.example.demo.application.domain.model.User">
+      select * from PROXY.USERS 
+      WHERE PASSWORD = #{createPassword}
+   </select>
    <insert id="insertUser">
    INSERT INTO 
      PROXY.USERS(
@@ -40,6 +44,11 @@
    UPDATE PROXY.USERS
    SET TOKEN = #{token},
        TOKEN_OUT_TIME = #{token_out_time}
+   WHERE MAIL = #{mail}
+   </update>
+   <update id="setAutoCreatePassword">
+   UPDATE PROXY.USERS
+   SET PASSWORD = #{password}
    WHERE MAIL = #{mail}
    </update>
 </mapper>

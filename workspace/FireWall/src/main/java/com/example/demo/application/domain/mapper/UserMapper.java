@@ -26,10 +26,15 @@ public interface UserMapper {
 	// 初回認証カウント
 	void setInitialCertificationCount(User user);
 	
-	//トークン設定
+	// トークン設定
 	void setTokenInfo(User user);
 	
-	//トークン認証
+	// トークン認証
 	List<User> getToken(String token);
-
+	
+	// 新規パスワード登録用
+	List<User> getPassword(String Password);
+	
+	// 仮スワード設定
+	void setAutoCreatePassword(User user);
 }
