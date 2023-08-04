@@ -1,0 +1,18 @@
+{
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonJs",
+    "lib": ["ES5", "ES6", "DOM"],
+    "baseUrl": "./",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "noImplicitAny": false,
+    "moduleResolution": "node"
+  }
+}
