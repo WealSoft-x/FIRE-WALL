@@ -20,8 +20,8 @@ function Copyright(props: any) {
   return (
     <Typography variant='body2' color='text.secondary' align='center' {...props}>
       {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Your Website
+      <Link color='inherit' href='https://wealsoft.co.jp/'>
+        wealsoft
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -32,16 +32,21 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 export default function MainComponent() {
-    const [address, setAddress] = useState('');
+    const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
-        console.log('log:', address, password);
-        axios
-        .post(`${Constants.BACKEND_URL}'/'`, {
-            id: address,
-            password: password,
+        console.log('log:', mail, password);
+      axios
+        .post(`${Constants.BACKEND_URL}/login`, {
+          mail: mail,
+          password: password,
+        },  
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
         })
         .then((response) => {
             console.log(response)
@@ -79,7 +84,7 @@ export default function MainComponent() {
               name='email'
               autoComplete='email'
               autoFocus
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={(e) => setMail(e.target.value)}
             />
             <TextField
               margin='normal'
@@ -92,7 +97,6 @@ export default function MainComponent() {
               autoComplete='current-password'
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
             <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
