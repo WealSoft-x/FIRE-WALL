@@ -9,8 +9,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   # PostgreSQL(DBサーバ)
   config.vm.network "forwarded_port", guest: 5432, host:5432
-  # Nginx(Webサーバ)
-  config.vm.network "forwarded_port", guest: 80, host:80
 
   config.vm.network "private_network", ip:"172.16.0.20"
   config.vm.hostname = "firewall.local"
