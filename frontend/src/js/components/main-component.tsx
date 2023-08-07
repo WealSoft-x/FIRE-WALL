@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from 'axios'
+import { useState } from 'react'
+import { Constants } from '../constants/constants'
 
 function Copyright(props: any) {
   return (
@@ -30,20 +32,23 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 export default function MainComponent() {
-  const handleSubmit = (event: any) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    axios
-      .post('http://localhost/api/login', {
-        id: data.get('email'),
-        password: data.get('password'),
-      })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+    const [address, setAddress] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (event: any) => {
+        event.preventDefault()
+        console.log('log:', address, password);
+        axios
+        .post(`${Constants.BACKEND_URL}'/'`, {
+            id: address,
+            password: password,
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((e) => {
+            console.log(e)
+        })
   }
 
   return (
@@ -74,6 +79,7 @@ export default function MainComponent() {
               name='email'
               autoComplete='email'
               autoFocus
+              onChange={(e) => setAddress(e.target.value)}
             />
             <TextField
               margin='normal'
@@ -84,6 +90,7 @@ export default function MainComponent() {
               type='password'
               id='password'
               autoComplete='current-password'
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
             <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
