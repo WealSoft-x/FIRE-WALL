@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
-const search_dir = 'doc'
+const search_dir = 'fire-wall'
 
 module.exports = [
   {
