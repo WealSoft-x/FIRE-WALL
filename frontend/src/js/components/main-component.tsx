@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from 'axios'
 import { useState } from 'react'
 import { Constants } from '../constants/constants'
+import { useHistory } from 'react-router-dom'
 
 function Copyright(props: any) {
   return (
@@ -34,8 +35,10 @@ const theme = createTheme()
 export default function MainComponent() {
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory()
+    
 
-    const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
         event.preventDefault()
         console.log('log:', mail, password);
       axios
@@ -49,7 +52,16 @@ export default function MainComponent() {
           }
         })
         .then((response) => {
-            console.log(response)
+          console.log(response)
+          if (response.data == "ログイン画面へ：ユーザーが存在しません(メールが違います)") {
+            alert(response.data)
+          } else if (response.data == "あなたのアカウントはロックされています") {
+            alert(response.data)
+          } else if (response.data == "ログイン画面へ：パスワードが違います") {
+            alert(response.data)
+          } else {
+            history.push('/fire-wall/authentification')
+          }
         })
         .catch((e) => {
             console.log(e)
