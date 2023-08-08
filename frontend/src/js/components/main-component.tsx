@@ -38,7 +38,7 @@ export default function MainComponent() {
     const history = useHistory()
     
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
         event.preventDefault()
         console.log('log:', mail, password);
       axios
@@ -53,7 +53,15 @@ export default function MainComponent() {
         })
         .then((response) => {
           console.log(response)
-          history.push('/fire-wall/authentification')
+          if (response.data == "ログイン画面へ：ユーザーが存在しません(メールが違います)") {
+            alert(response.data)
+          } else if (response.data == "あなたのアカウントはロックされています") {
+            alert(response.data)
+          } else if (response.data == "ログイン画面へ：パスワードが違います") {
+            alert(response.data)
+          } else {
+            history.push('/fire-wall/authentification')
+          }
         })
         .catch((e) => {
             console.log(e)

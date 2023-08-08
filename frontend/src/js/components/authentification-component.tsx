@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from 'axios'
 import { useState } from 'react'
 import { Constants } from '../constants/constants'
+import { useHistory } from 'react-router-dom'
 
 function Copyright(props: any) {
   return (
@@ -32,7 +33,8 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 export default function AuthentificationComponent() {
-    const [token, setToken] = useState('');
+  const [token, setToken] = useState('');
+  const history = useHistory();
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -46,7 +48,15 @@ export default function AuthentificationComponent() {
           }
         })
         .then((response) => {
-            console.log(response)
+          console.log(response)
+          if (response.data == "ログイン画面へ：トークン時間切れ") {
+            alert(response.data);
+            history.push('/fire-wall')
+          } else if (response.data == "2段階認証画面へ: トークンが違います") {
+            alert(response.data)
+          } else {
+            alert('OK')
+          }
         })
         .catch((e) => {
             console.log(e)
