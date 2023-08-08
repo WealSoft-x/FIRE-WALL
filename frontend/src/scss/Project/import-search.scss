@@ -1,0 +1,49 @@
+.p-import-search {
+  position: relative;
+  padding-left: 60px;
+
+  &__search {
+    position: relative;
+    margin-top: 30px;
+  }
+
+  &__edit {
+    position: relative;
+    margin-top: 40px;
+  }
+
+  &__inner {
+    position: relative;
+    padding-left: 20px;
+
+    &--grid {
+      display: grid;
+    }
+
+    &--flex {
+      display: flex;
+    }
+  }
+
+  &__inner-radio {
+    position: relative;
+    display: flex;
+  }
+
+  &__list-button {
+    position: relative;
+    margin-left: 20px;
+  }
+}
+
+.p-edit {
+  &__text {
+    position: relative;
+  }
+
+  &__input {
+    position: relative;
+    display: grid;
+    padding-left: 80px;
+  }
+}
