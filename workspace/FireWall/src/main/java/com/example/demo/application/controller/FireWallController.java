@@ -143,19 +143,25 @@ public class FireWallController {
 	@PostMapping("/sentresetpassword")
 	public String sentResetPassword(@RequestBody UserResetPasswordParam param) {
 
-		// 仮パスワード完了の連絡メール
-		TokenGenerate tokenGenerate = new TokenGenerate();
-		User user = new User();
-		user.setMail(service.getCertifacatedUser(param.getMail()).get(0).getMail());
-		user.setPassword(tokenGenerate.generateToken());
-		Mail mail = new Mail();
-		mail.sentMail(user);
+		// アカウント有無確認
+		if(service.getCertifacatedUser(param.getMail()).size() != 0 ){
+			// 仮パスワード完了の連絡メール
+			TokenGenerate tokenGenerate = new TokenGenerate();
+			User user = new User();
+			user.setMail(service.getCertifacatedUser(param.getMail()).get(0).getMail());
+			user.setPassword(tokenGenerate.generateToken());
+			Mail mail = new Mail();
+			mail.sentMail(user);
 
 
-		// 新しいパスワードを設定
-		service.setAutoCreatePassword(user);			
+			// 新しいパスワードを設定
+			service.setAutoCreatePassword(user);			
 
-		return "仮パスワードを送信しました";
+			return "仮パスワードを送信しました";
+		} else {
+			return "アカウントが存在しません、メールアドレスを確認してください";
+		}
+		
 	}
 	
 	@PostMapping("/resetpassword")
