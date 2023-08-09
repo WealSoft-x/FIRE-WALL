@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import Link from '@mui/material/Link'
+import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -21,7 +21,7 @@ function Copyright(props: any) {
   return (
     <Typography variant='body2' color='text.secondary' align='center' {...props}>
       {'Copyright © '}
-      <Link color='inherit' href='https://wealsoft.co.jp/'>
+      <Link color='inherit' to='https://wealsoft.co.jp/'>
         wealsoft
       </Link>{' '}
       {new Date().getFullYear()}
@@ -114,7 +114,7 @@ export default function MainComponent() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href='#' variant='body2'>
+                <Link to='/fire-wall/temporarypassword'>
                   Forgot password?
                 </Link>
               </Grid>
