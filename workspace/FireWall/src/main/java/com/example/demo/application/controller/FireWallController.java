@@ -16,9 +16,11 @@ import com.example.demo.application.config.Mail;
 import com.example.demo.application.config.MailCheck;
 import com.example.demo.application.config.TokenGenerate;
 import com.example.demo.application.domain.model.LoginUser;
+import com.example.demo.application.domain.model.NewPassword;
 import com.example.demo.application.domain.model.TokenInfo;
 import com.example.demo.application.domain.model.User;
 import com.example.demo.application.domain.model.UserRegisterRequestParam;
+import com.example.demo.application.domain.model.UserResetPasswordParam;
 import com.example.demo.application.domain.service.UserService;
 
 @RestController
@@ -137,4 +139,50 @@ public class FireWallController {
 		}
 		
 	}
+	
+	@PostMapping("/sentresetpassword")
+	public String sentResetPassword(@RequestBody UserResetPasswordParam param) {
+
+		// アカウント有無確認
+		if(service.getCertifacatedUser(param.getMail()).size() != 0 ){
+			// 仮パスワード完了の連絡メール
+			TokenGenerate tokenGenerate = new TokenGenerate();
+			User user = new User();
+			user.setMail(service.getCertifacatedUser(param.getMail()).get(0).getMail());
+			user.setPassword(tokenGenerate.generateToken());
+			Mail mail = new Mail();
+			mail.sentMail(user);
+
+
+			// 新しいパスワードを設定
+			service.setAutoCreatePassword(user);			
+
+			return "仮パスワードを送信しました";
+		} else {
+			return "アカウントが存在しません、メールアドレスを確認してください";
+		}
+		
+	}
+	
+	@PostMapping("/resetpassword")
+	public String resetPassword(@RequestBody NewPassword newPassword) {
+		
+		User user = new User();
+		user.setMail(newPassword.getMail());
+		user.setPassword(newPassword.getNewPassword());
+		
+		Hash hash = new Hash();
+		if(service.getCertifacatedUser(user.getMail()).size()!= 0 
+				&&!hash.checkpw(newPassword.getCreatePassword(), service.getCertifacatedUser(newPassword.getMail()).get(0).getPassword())) {
+			return "仮パスワードが違います ：再入力してください";
+		} else if (!newPassword.getNewPassword().equals(newPassword.getCheckPassword())){
+			return "確認用パスワードが違います";
+		} else {
+			service.setAutoCreatePassword(user);
+			return "パスワードの設定が完了しました：ログイン画面より再ログインしてください";
+		}
+		
+	}
+		
+		
 }
