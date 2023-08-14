@@ -13,6 +13,7 @@ import com.example.demo.application.domain.model.CreateUserTime;
 import com.example.demo.application.domain.model.NewUser;
 import com.example.demo.application.domain.model.TokenInfo;
 import com.example.demo.application.domain.model.User;
+import com.example.demo.application.domain.model.UserSearch;
 
 @Service
 public class UserService {
@@ -27,6 +28,10 @@ public class UserService {
 	
 	public List<User> getCertifacatedUser(String mail) {
 		return userMapper.getCertifacatedUser(mail);
+	}
+	
+	public List<User> getUsers(UserSearch userSearch){
+		return userMapper.getUsers(userSearch);
 	}
 	
 	public void insertUser(NewUser newUser) {

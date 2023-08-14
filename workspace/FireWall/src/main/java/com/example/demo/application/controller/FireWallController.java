@@ -2,6 +2,7 @@ package com.example.demo.application.controller;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import com.example.demo.application.domain.model.TokenInfo;
 import com.example.demo.application.domain.model.User;
 import com.example.demo.application.domain.model.UserRegisterRequestParam;
 import com.example.demo.application.domain.model.UserResetPasswordParam;
+import com.example.demo.application.domain.model.UserSearchRequestParam;
 import com.example.demo.application.domain.service.UserService;
 
 @RestController
@@ -182,6 +184,11 @@ public class FireWallController {
 			return "パスワードの設定が完了しました：ログイン画面より再ログインしてください";
 		}
 		
+	}
+	
+	@PostMapping("/search")
+	public List<User> getUsers(@RequestBody UserSearchRequestParam param){
+		return service.getUsers(param.getUserSearch());
 	}
 		
 		
