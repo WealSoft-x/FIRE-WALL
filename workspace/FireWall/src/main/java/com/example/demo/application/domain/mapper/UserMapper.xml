@@ -26,7 +26,7 @@
       	<if test = 'name != null and name != ""'>
       		AND NAME = #{name}
       	</if>
-      	<if test = 'is_admin != null and is_admin != ""'>
+      	<if test = 'is_admin == true or is_admin == false'>
       		AND IS_ADMIN = #{is_admin}
       	</if>
       </where>
