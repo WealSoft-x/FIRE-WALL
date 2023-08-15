@@ -65,4 +65,19 @@
    SET PASSWORD = #{password}
    WHERE MAIL = #{mail}
    </update>
+   <delete id="deleteUser">
+      DELETE FROM PROXY.USERS WHERE MAIL = #{mail} 
+   </delete>
+   <update id="updateUser">
+     UPDATE
+       PROXY.USERS
+     SET
+       MAIL = #{mail},
+       PASSWORD = #{password},
+       NAME = #{name},
+       IS_ADMIN = #{is_admin},
+       UPDATED_AT = #{updated_at}
+     WHERE
+       MAIL = #{comfirmationMail}
+   </update>
 </mapper>
