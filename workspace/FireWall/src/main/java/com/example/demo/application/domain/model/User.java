@@ -15,8 +15,8 @@ public class User {
 	private int initial_certification_count;
 	private String token;
 	private LocalDateTime token_out_time;
-	private LocalDateTime updated_time;
-	private LocalDateTime created_time;
+	private LocalDateTime updated_at;
+	private LocalDateTime created_at;
 	
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.application.domain.model.CompleteNewUser;
+import com.example.demo.application.domain.model.CompleteUpdateUser;
 import com.example.demo.application.domain.model.User;
 import com.example.demo.application.domain.model.UserSearch;
 
@@ -41,4 +42,10 @@ public interface UserMapper {
 	
 	// 仮スワード設定
 	void setAutoCreatePassword(User user);
+	
+	// ユーザー削除
+	void deleteUser(String mail);
+	
+	// ユーザー更新
+	void updateUser(CompleteUpdateUser user);
 }

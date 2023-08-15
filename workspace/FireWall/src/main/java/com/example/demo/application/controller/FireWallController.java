@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,7 @@ import com.example.demo.application.config.TokenGenerate;
 import com.example.demo.application.domain.model.LoginUser;
 import com.example.demo.application.domain.model.NewPassword;
 import com.example.demo.application.domain.model.TokenInfo;
+import com.example.demo.application.domain.model.UpdateUser;
 import com.example.demo.application.domain.model.User;
 import com.example.demo.application.domain.model.UserRegisterRequestParam;
 import com.example.demo.application.domain.model.UserResetPasswordParam;
@@ -199,6 +202,24 @@ public class FireWallController {
 		userSearch.setIs_admin(is_admin);
 		
 		return service.getUsers(userSearch);
+	}
+	
+	@DeleteMapping("/delete")
+	public void deleteUser(@RequestParam(value="mail") String mail) {
+		service.deleteUser(mail);
+	}
+	
+	@PutMapping("/update")
+	public String updateUser(@RequestBody UpdateUser updateUser) {
+				
+		if(service.getCertifacatedUser(updateUser.getComfirmationMail()).size() == 0){	
+			return"ユーザーが存在しません：メールアドレス";
+		}else if(updateUser.getPassword().equals("")){
+			return"名前が規定の文字数を越えています（10文字まで）";
+		} else {
+			service.upateUser(updateUser);
+			return "更新完了";
+		}		
 	}
 		
 		

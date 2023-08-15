@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.example.demo.application.config.Hash;
 import com.example.demo.application.domain.mapper.UserMapper;
 import com.example.demo.application.domain.model.CompleteNewUser;
+import com.example.demo.application.domain.model.CompleteUpdateUser;
 import com.example.demo.application.domain.model.CreateUserTime;
 import com.example.demo.application.domain.model.NewUser;
 import com.example.demo.application.domain.model.TokenInfo;
+import com.example.demo.application.domain.model.UpdateUser;
 import com.example.demo.application.domain.model.User;
 import com.example.demo.application.domain.model.UserSearch;
 
@@ -76,5 +78,24 @@ public class UserService {
 		String hashedPassword = hash.hashPassword(user.getPassword());
 		user.setPassword(hashedPassword);
 		userMapper.setAutoCreatePassword(user);
+	}
+	public void deleteUser(String mail) {
+		userMapper.deleteUser(mail);
+	}
+	public void upateUser(UpdateUser updateUser) {
+		
+		//パスワードのハッシュ化
+		String hashedPassword = hash.hashPassword(updateUser.getPassword());
+		// 更新日時
+		LocalDateTime ldt = LocalDateTime.now();
+		CompleteUpdateUser user = new CompleteUpdateUser();
+		user.setMail(updateUser.getMail());
+		user.setName(updateUser.getName());
+		user.setPassword(hashedPassword);
+		user.setUpdated_at(ldt);
+		user.setComfirmationMail(updateUser.getComfirmationMail());
+		
+		
+		userMapper.updateUser(user);
 	}
 }
